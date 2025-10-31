@@ -1,0 +1,242 @@
+{% extends 'home.html' %} {% load static %} {% block title %}Clientes | Sistema
+de Restaurante ADM{% endblock %} {% block btn-header-content %}
+<a
+  href="{% url 'home' %}"
+  class="bg-muted hover:bg-muted/80 text-muted-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2"
+>
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+    ></path>
+  </svg>
+  <span>Volver a Inicio</span>
+</a>
+{% endblock %} {% block content %}
+<div class="flex h-[calc(100vh-140px)]">
+  <div class="w-98 bg-card border-r border-border p-6">
+    <div class="bg-secondary/30 rounded-lg p-6 h-full">
+      {% block sidebar_content %}
+      <div class="space-y-6">
+        <div class="flex items-center space-x-3 mb-6">
+          <div
+            class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center"
+          >
+            <svg
+              class="w-5 h-5 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-bold text-foreground">Gestión de Clientes</h2>
+        </div>
+
+        <form method="post" id="client-form" class="space-y-4">
+          {% csrf_token %}
+          <input type="hidden" name="cliente_id" id="cliente_id" />
+
+          <div>
+            <label
+              for="name_client"
+              class="block text-sm font-medium text-foreground mb-2"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              name="nombre"
+              id="name_client"
+              class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
+              placeholder="Nombre del cliente"
+            />
+          </div>
+
+          <div>
+            <label
+              for="tel_client"
+              class="block text-sm font-medium text-foreground mb-2"
+              >Teléfono</label
+            >
+            <input
+              type="text"
+              name="telefono"
+              id="tel_client"
+              class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
+              placeholder="Teléfono del cliente"
+            />
+          </div>
+
+          <div>
+            <label
+              for="email_client"
+              class="block text-sm font-medium text-foreground mb-2"
+              >Correo</label
+            >
+            <input
+              type="email"
+              name="correo"
+              id="email_client"
+              class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
+              placeholder="correo@ejemplo.com"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-4">
+            <button
+              type="submit"
+              name="agregar"
+              class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+            >
+              Agregar
+            </button>
+            <button
+              type="submit"
+              name="buscar"
+              class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+            >
+              <span>Buscar</span>
+              <div class="group relative">
+                <svg
+                  class="w-4 h-4 text-accent-foreground/70"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <div
+                  class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10"
+                >
+                  Para buscar un cliente solo se necesita su nombre
+                </div>
+              </div>
+            </button>
+            <button
+              type="submit"
+              name="actualizar"
+              class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+            >
+              Actualizar
+            </button>
+            <button
+              type="submit"
+              name="eliminar"
+              class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+            >
+              Eliminar
+            </button>
+          </div>
+        </form>
+      </div>
+      {% endblock %}
+    </div>
+  </div>
+
+  <div class="flex-1 p-6 overflow-auto">
+    {% block table_content %}
+    <div class="bg-card rounded-lg border border-border overflow-hidden">
+      <div class="bg-primary px-6 py-4 flex items-center justify-between">
+        <h3 class="text-lg font-semibold text-primary-foreground">
+          Lista de Clientes
+        </h3>
+        <button
+          type="button"
+          id="show-all-clients"
+          class="bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+        >
+          Mostrar Todos
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-secondary">
+            <tr>
+              <th
+                class="px-6 py-4 text-left text-sm font-medium text-secondary-foreground"
+              >
+                ID
+              </th>
+              <th
+                class="px-6 py-4 text-left text-sm font-medium text-secondary-foreground"
+              >
+                Nombre
+              </th>
+              <th
+                class="px-6 py-4 text-left text-sm font-medium text-secondary-foreground"
+              >
+                Teléfono
+              </th>
+              <th
+                class="px-6 py-4 text-left text-sm font-medium text-secondary-foreground"
+              >
+                Correo
+              </th>
+              <th
+                class="px-6 py-4 text-left text-sm font-medium text-secondary-foreground"
+              >
+                Fecha de registro
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            {% for cliente in clientes %}
+            <tr
+              onclick="fillForm('{{ cliente.id }}', '{{ cliente.nombre }}', '{{ cliente.telefono }}', '{{ cliente.correo }}')"
+              class="hover:bg-muted/30 cursor-pointer transition-colors duration-200"
+            >
+              <td class="px-6 py-4 text-sm text-foreground">
+                {{ cliente.id }}
+              </td>
+              <td class="px-6 py-4 text-sm text-foreground font-medium">
+                {{ cliente.nombre }}
+              </td>
+              <td class="px-6 py-4 text-sm text-muted-foreground">
+                {{ cliente.telefono }}
+              </td>
+              <td class="px-6 py-4 text-sm text-muted-foreground">
+                {{ cliente.correo }}
+              </td>
+              <td class="px-6 py-4 text-sm text-muted-foreground">
+                {{ cliente.fecha_registro }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+</div>
+
+{% block scripts_content %}
+<script>
+  function fillForm(id, nombre, telefono, correo) {
+    document.getElementById("cliente_id").value = id;
+    document.getElementById("name_client").value = nombre;
+    document.getElementById("tel_client").value = telefono;
+    document.getElementById("email_client").value = correo;
+  }
+
+  document
+    .getElementById("show-all-clients")
+    .addEventListener("click", function () {
+      window.location.reload();
+    });
+</script>
+{% endblock %} {% endblock %}

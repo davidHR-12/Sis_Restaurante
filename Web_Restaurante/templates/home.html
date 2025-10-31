@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Sistema de Restaurante ADM{% endblock %}</title>
+    {% load static %}
+    <link
+      rel="preload"
+      as="image"
+      href="{% static 'images/background.webp' %}"
+    />
+    <link rel="stylesheet" href="{% static 'css/base_style.css' %}?v=1.1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              background: "#0a0a0a",
+              foreground: "#fafafa",
+              card: "#1a1a1a",
+              "card-foreground": "#fafafa",
+              primary: "#3b82f6",
+              "primary-foreground": "#fafafa",
+              secondary: "#262626",
+              "secondary-foreground": "#fafafa",
+              muted: "#262626",
+              "muted-foreground": "#a3a3a3",
+              accent: "#10b981",
+              "accent-foreground": "#fafafa",
+              destructive: "#ef4444",
+              "destructive-foreground": "#fafafa",
+              border: "#404040",
+              input: "#262626",
+              ring: "#3b82f6",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="min-h-screen bg-background text-foreground">
+    <header class="bg-card border-b border-border">
+      <div class="px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center"
+            >
+              <svg
+                class="w-6 h-6 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                ></path>
+              </svg>
+            </div>
+            <h1 class="text-xl font-bold text-foreground">
+              Sistema de Restaurante ADM
+            </h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-accent"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+              </div>
+              <span class="text-sm text-muted-foreground"
+                >{{ user.username }}</span
+              >
+            </div>
+            <a
+              href="{% url 'logout' %}"
+              class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+            >
+              Cerrar Sesión
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="bg-card border-b border-border">
+      <div class="px-6 py-4">
+        <div class="flex items-center justify-center space-x-2">
+          <a
+            href="{% url 'client' %}"
+            class="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+            <span>Clientes</span>
+          </a>
+          <a
+            href="{% url 'orders' %}"
+            class="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+              ></path>
+            </svg>
+            <span>Pedidos</span>
+          </a>
+          <a
+            href="{% url 'menu' %}"
+            class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+            <span>Menú</span>
+          </a>
+          {% block btn-header-content %}{% endblock %}
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      {% block content %}
+      <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="bg-card rounded-xl border border-border p-8 text-center">
+          <div
+            class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-10 h-10 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              ></path>
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold text-foreground mb-4">
+            ¡Bienvenido, {{ user.username }}!
+          </h2>
+          <p class="text-muted-foreground text-lg mb-8">
+            Nos alegra verte de nuevo en tu sistema de gestión
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="bg-primary/5 border border-primary/20 rounded-lg p-6">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="font-semibold text-foreground mb-2">
+                Gestión de Clientes
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                Administra tu base de clientes
+              </p>
+            </div>
+
+            <div class="bg-accent/5 border border-accent/20 rounded-lg p-6">
+              <div
+                class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-accent"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="font-semibold text-foreground mb-2">
+                Control de Pedidos
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                Gestiona todos los pedidos
+              </p>
+            </div>
+
+            <div class="bg-secondary/50 border border-border rounded-lg p-6">
+              <div
+                class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="font-semibold text-foreground mb-2">
+                Administrar Menú
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                Actualiza tu carta de platillos
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="bg-muted/30 border border-border rounded-lg p-6 mt-8 text-left"
+          >
+            <h3
+              class="text-lg font-semibold text-foreground mb-4 flex items-center"
+            >
+              <svg
+                class="w-5 h-5 text-accent mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              Información de Contacto
+            </h3>
+            <p class="text-muted-foreground">
+              Para soporte técnico, contacta a:
+              <a
+                href="mailto:soporte@restauranteadm.com"
+                class="text-primary hover:text-primary/80 transition-colors"
+              >
+                soporte@restauranteadm.com
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+    </main>
+  </body>
+</html>

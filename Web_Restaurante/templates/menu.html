@@ -1,0 +1,196 @@
+{% extends "client.html" %} {% load static %} {% block title %}Menu | Sistema de
+Restaurante ADM{% endblock %} {% block sidebar_content %}
+<div class="space-y-6">
+  <div class="flex items-center space-x-3 mb-6">
+    <div
+      class="w-10 h-10 bg-secondary/50 rounded-lg flex items-center justify-center"
+    >
+      <svg
+        class="w-5 h-5 text-foreground"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+        ></path>
+      </svg>
+    </div>
+    <h2 class="text-xl font-bold text-foreground">Gestión de Menú</h2>
+  </div>
+
+  <form method="post" id="menu-form" class="space-y-4">
+    {% csrf_token %}
+    <input type="hidden" name="dish_id" id="dish_id" />
+
+    <div>
+      <label
+        for="dish_name"
+        class="block text-sm font-medium text-foreground mb-2"
+        >Nombre del Platillo</label
+      >
+      <input
+        type="text"
+        name="nombre"
+        id="dish_name"
+        class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
+        placeholder="Nombre del platillo"
+      />
+    </div>
+
+    <div>
+      <label
+        for="dish_description"
+        class="block text-sm font-medium text-foreground mb-2"
+        >Descripción</label
+      >
+      <textarea
+        name="descripcion"
+        id="dish_description"
+        rows="3"
+        class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground resize-none"
+        placeholder="Descripción del platillo"
+      ></textarea>
+    </div>
+
+    <div>
+      <label
+        for="dish_price"
+        class="block text-sm font-medium text-foreground mb-2"
+        >Precio (RD$)</label
+      >
+      <input
+        type="number"
+        name="precio"
+        id="dish_price"
+        step="0.01"
+        class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
+        placeholder="0.00"
+      />
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 pt-4">
+      <button
+        type="submit"
+        name="agregar"
+        class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+      >
+        Agregar
+      </button>
+      <button
+        type="submit"
+        name="buscar"
+        class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+      >
+        <span>Buscar</span>
+        <div class="group relative">
+          <svg
+            class="w-4 h-4 text-accent-foreground/70"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <div
+            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10"
+          >
+            Para buscar un platillo solo se necesita su nombre
+          </div>
+        </div>
+      </button>
+      <button
+        type="submit"
+        name="actualizar"
+        class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+      >
+        Actualizar
+      </button>
+      <button
+        type="submit"
+        name="eliminar"
+        class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+      >
+        Eliminar
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %} {% block table_content %}
+<div class="bg-card rounded-lg border border-border overflow-hidden">
+  <div class="bg-secondary px-6 py-4 flex items-center justify-between">
+    <h3 class="text-lg font-semibold text-secondary-foreground">
+      Lista de Platillos
+    </h3>
+    <button
+      type="button"
+      id="show-all-clients"
+      class="bg-secondary-foreground/10 hover:bg-secondary-foreground/20 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+    >
+      Mostrar Todos
+    </button>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-muted">
+        <tr>
+          <th
+            class="px-6 py-4 text-left text-sm font-medium text-muted-foreground"
+          >
+            ID
+          </th>
+          <th
+            class="px-6 py-4 text-left text-sm font-medium text-muted-foreground"
+          >
+            Nombre
+          </th>
+          <th
+            class="px-6 py-4 text-left text-sm font-medium text-muted-foreground"
+          >
+            Descripción
+          </th>
+          <th
+            class="px-6 py-4 text-left text-sm font-medium text-muted-foreground"
+          >
+            Precio
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        {% for dish in dishes %}
+        <tr
+          onclick="fillForm('{{ dish.id }}', '{{ dish.nombre }}', '{{ dish.descripcion }}', '{{ dish.precio }}')"
+          class="hover:bg-muted/30 cursor-pointer transition-colors duration-200 dish-row"
+          data-dish-id="{{ dish.id }}"
+          data-dish-name="{{ dish.nombre|escapejs }}"
+          data-dish-description="{{ dish.descripcion|escapejs }}"
+          data-dish-price="{{ dish.precio }}"
+        >
+          <td class="px-6 py-4 text-sm text-foreground">{{ dish.id }}</td>
+          <td class="px-6 py-4 text-sm text-foreground font-medium">
+            {{ dish.nombre }}
+          </td>
+          <td class="px-6 py-4 text-sm text-muted-foreground">
+            {{ dish.descripcion }}
+          </td>
+          <td class="px-6 py-4 text-sm text-accent font-semibold">
+            RD$ {{ dish.precio }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %} {% block scripts_content %}
+<script src="{% static 'js/menu.js' %}"></script>
+{% endblock %}
