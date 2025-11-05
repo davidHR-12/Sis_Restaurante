@@ -277,10 +277,14 @@ de Restaurante ADM{% endblock %} {% block sidebar_content %}
           </td>
           <td class="px-6 py-4 text-sm">
             <span
-              class="px-2 py-1 rounded-full text-xs font-medium {% if order.estado == 'Pendiente' %}bg-yellow-500/10 text-yellow-500 border border-yellow-500/20{% endif %} {% if order.estado == 'En proceso' %}bg-blue-500/10 text-blue-500 border border-blue-500/20{% endif %} {% if order.estado == 'Listo' %}bg-green-500/10 text-green-500 border border-green-500/20{% endif %} {% if order.estado == 'Cancelado' %}bg-red-500/10 text-red-500 border border-red-500/20{% endif %}"
-            >
-              {{ order.estado }}
-            </span>
+            class="inline-flex items-center justify-center min-w-[6rem] px-3 py-1.5 rounded-full text-sm font-semibold text-center
+            {% if order.estado == 'Pendiente' %}bg-yellow-500/10 text-yellow-400 border border-yellow-500/30{% endif %}
+            {% if order.estado == 'En proceso' %}bg-blue-500/10 text-blue-400 border border-blue-500/30{% endif %}
+            {% if order.estado == 'Listo' %}bg-green-500/10 text-green-400 border border-green-500/30{% endif %}
+            {% if order.estado == 'Cancelado' %}bg-red-500/10 text-red-400 border border-red-500/30{% endif %}"
+          >
+            {{ order.estado }}
+          </span>
           </td>
           <td class="px-6 py-4 text-sm text-muted-foreground">
             {{ order.cliente.fecha_registro }}
