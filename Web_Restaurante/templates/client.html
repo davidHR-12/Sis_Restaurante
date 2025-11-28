@@ -91,55 +91,65 @@ de Restaurante ADM{% endblock %} {% block btn-header-content %}
           </div>
 
           <div class="grid grid-cols-2 gap-3 pt-4">
+
+            <!-- AGREGAR -->
             <button
-              type="submit"
-              name="agregar"
-              class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                type="submit"
+                formaction="{% url 'cliente_agregar' %}"
+                class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
             >
-              Agregar
+                Agregar
             </button>
+        
+            <!-- BUSCAR -->
             <button
-              type="submit"
-              name="buscar"
-              class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+                type="submit"
+                formaction="{% url 'cliente_buscar' %}"
+                class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1"
             >
-              <span>Buscar</span>
-              <div class="group relative">
-                <svg
-                  class="w-4 h-4 text-accent-foreground/70"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-                <div
-                  class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10"
-                >
-                  Para buscar un cliente solo se necesita su nombre
+                <span>Buscar</span>
+                <div class="group relative">
+                    <svg
+                        class="w-4 h-4 text-accent-foreground/70"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                    </svg>
+                    <div
+                        class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10"
+                    >
+                        Para buscar un cliente solo se necesita su nombre
+                    </div>
                 </div>
-              </div>
             </button>
+        
+            <!-- ACTUALIZAR -->
             <button
-              type="submit"
-              name="actualizar"
-              class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                type="submit"
+                formaction="{% url 'cliente_actualizar' %}"
+                class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
             >
-              Actualizar
+                Actualizar
             </button>
+        
+            <!-- ELIMINAR -->
             <button
-              type="submit"
-              name="eliminar"
-              class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
+                type="submit"
+                formaction="{% url 'cliente_eliminar' %}"
+                class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
             >
-              Eliminar
+                Eliminar
             </button>
-          </div>
+        
+        </div>
+        
         </form>
       </div>
       {% endblock %}
@@ -225,18 +235,7 @@ de Restaurante ADM{% endblock %} {% block btn-header-content %}
 </div>
 
 {% block scripts_content %}
-<script>
-  function fillForm(id, nombre, telefono, correo) {
-    document.getElementById("cliente_id").value = id;
-    document.getElementById("name_client").value = nombre;
-    document.getElementById("tel_client").value = telefono;
-    document.getElementById("email_client").value = correo;
-  }
+<script src="{% static '/js/client.js' %}"></script>
 
-  document
-    .getElementById("show-all-clients")
-    .addEventListener("click", function () {
-      window.location.reload();
-    });
-</script>
-{% endblock %} {% endblock %}
+{% endblock %}
+{% endblock %}

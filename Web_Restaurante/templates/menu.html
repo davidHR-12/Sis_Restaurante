@@ -74,6 +74,7 @@ Restaurante ADM{% endblock %} {% block sidebar_content %}
 
     <div class="grid grid-cols-2 gap-3 pt-4">
       <button
+        formaction="{% url 'menu_agregar' %}"
         type="submit"
         name="agregar"
         class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
@@ -81,6 +82,7 @@ Restaurante ADM{% endblock %} {% block sidebar_content %}
         Agregar
       </button>
       <button
+        formaction="{% url 'menu_buscar' %}"
         type="submit"
         name="buscar"
         class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1"
@@ -107,7 +109,9 @@ Restaurante ADM{% endblock %} {% block sidebar_content %}
           </div>
         </div>
       </button>
+
       <button
+        formaction="{% url 'menu_actualizar' %}"
         type="submit"
         name="actualizar"
         class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
@@ -115,6 +119,7 @@ Restaurante ADM{% endblock %} {% block sidebar_content %}
         Actualizar
       </button>
       <button
+        formaction="{% url 'menu_eliminar' %}"
         type="submit"
         name="eliminar"
         class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"

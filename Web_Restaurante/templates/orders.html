@@ -22,179 +22,85 @@ de Restaurante ADM{% endblock %} {% block sidebar_content %}
     <h2 class="text-xl font-bold text-foreground">Gestión de Pedidos</h2>
   </div>
 
-  <form method="post" id="order-form" class="space-y-4">
-    {% csrf_token %}
-    <input type="hidden" name="order_id" id="order_id" />
+<form method="post" id="order-form" class="space-y-4">
+  {% csrf_token %}
+  <input type="hidden" name="order_id" id="order_id" />
 
-    <div>
-      <label
-        for="order_cliente"
-        class="block text-sm font-medium text-foreground mb-2"
-        >Cliente</label
-      >
-      <select
-        name="cliente"
-        id="order_cliente"
-        class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground"
-      >
-        <option value="todos">Todos</option>
-        {% for cliente in clientes %}
+  <div>
+    <label for="order_cliente" class="block text-sm font-medium text-foreground mb-2">Cliente</label>
+    <select name="cliente" id="order_cliente" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+      <option value="todos">Todos</option>
+      {% for cliente in clientes %}
         <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
-        {% endfor %}
-      </select>
-    </div>
+      {% endfor %}
+    </select>
+  </div>
 
-    <div>
-      <label
-        for="order_estado"
-        class="block text-sm font-medium text-foreground mb-2"
-        >Estado del Pedido</label
-      >
-      <select
-        name="estado"
-        id="order_estado"
-        class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground"
-      >
-        <option value="Pendiente">Pendiente</option>
-        <option value="En proceso">En proceso</option>
-        <option value="Listo">Listo</option>
-        <option value="Cancelado">Cancelado</option>
-      </select>
-    </div>
+  <div>
+    <label for="order_estado" class="block text-sm font-medium text-foreground mb-2">Estado del Pedido</label>
+    <select name="estado" id="order_estado" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+      <option value="Pendiente">Pendiente</option>
+      <option value="En proceso">En proceso</option>
+      <option value="Listo">Listo</option>
+      <option value="Cancelado">Cancelado</option>
+    </select>
+  </div>
 
-    <div id="order-details" class="space-y-4">
-      <label class="block text-sm font-medium text-foreground">Platillos</label>
-      <div id="order-platillos" class="space-y-3">
-        <div class="order-platillo flex items-center space-x-2">
-          <select
-            name="menu"
-            class="menu-select flex-1 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm"
-          >
-            {% for menu in menus %}
+  <div id="order-details" class="space-y-4">
+    <label class="block text-sm font-medium text-foreground">Platillos</label>
+    <div id="order-platillos" class="space-y-3">
+      <div class="order-platillo flex items-center space-x-2">
+        <select name="menu" class="menu-select flex-1 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm">
+          {% for menu in menus %}
             <option value="{{ menu.id }}">{{ menu.nombre }}</option>
-            {% endfor %}
-          </select>
-          <input
-            type="number"
-            name="cantidad"
-            min="1"
-            value="1"
-            class="menu-cantidad w-20 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm"
-          />
-          <button
-            type="button"
-            class="remove-platillo bg-destructive hover:bg-destructive/90 text-destructive-foreground w-8 h-8 rounded-lg transition-all duration-200 flex items-center justify-center"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
+          {% endfor %}
+        </select>
+        <input type="number" name="cantidad" min="1" value="1" class="menu-cantidad w-20 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm" />
+        <button type="button" class="remove-platillo bg-destructive hover:bg-destructive/90 text-destructive-foreground w-8 h-8 rounded-lg transition-all duration-200 flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button type="button" id="add-platillo" class="w-full bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      <span>Agregar Platillo</span>
+    </button>
+  </div>
+
+  <div class="grid grid-cols-2 gap-3 pt-4">
+    <!-- Agregar -->
+    <button type="submit" formaction="{% url 'order_agregar' %}" class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">Agregar</button>
+    <!-- Buscar -->
+    <button type="submit" formaction="{% url 'order_buscar' %}" class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+      <span>Buscar</span>
+      <div class="group relative">
+        <svg class="w-4 h-4 text-accent-foreground/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+          Para buscar un pedido solo se necesita el nombre del cliente
         </div>
       </div>
-      <button
-        type="button"
-        id="add-platillo"
-        class="w-full bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2"
-      >
-        <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          ></path>
-        </svg>
-        <span>Agregar Platillo</span>
-      </button>
-    </div>
-
-    <div class="grid grid-cols-2 gap-3 pt-4">
-      <button
-        type="submit"
-        name="agregar"
-        class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
-      >
-        Agregar
-      </button>
-      <button
-        type="submit"
-        name="buscar"
-        class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1"
-      >
-        <span>Buscar</span>
-        <div class="group relative">
-          <svg
-            class="w-4 h-4 text-accent-foreground/70"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          <div
-            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10"
-          >
-            Para buscar un pedido solo se necesita el nombre del cliente
-          </div>
-        </div>
-      </button>
-      <button
-        type="submit"
-        name="actualizar"
-        class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
-      >
-        Actualizar
-      </button>
-      <button
-        type="submit"
-        name="eliminar"
-        class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200"
-      >
-        Eliminar
-      </button>
-    </div>
-
-    <button
-      type="button"
-      id="create-invoice"
-      class="w-full bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 mt-4"
-    >
-      <svg
-        class="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-        ></path>
-      </svg>
-      <span>Crear Factura</span>
     </button>
-  </form>
+    <!-- Actualizar -->
+    <button type="submit" formaction="{% url 'order_actualizar' %}" class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">Actualizar</button>
+    <!-- Eliminar -->
+    <button type="submit" formaction="{% url 'order_eliminar' %}" class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">Eliminar</button>
+  </div>
+
+  <!-- Crear Factura -->
+  <button type="button" id="create-invoice" class="w-full bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2" onclick="goToInvoice()">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+    </svg>
+    <span>Crear Factura</span>
+  </button>
+</form>
+
 </div>
 {% endblock %} {% block table_content %}
 <div class="bg-card rounded-lg border border-border overflow-hidden">
@@ -298,38 +204,15 @@ de Restaurante ADM{% endblock %} {% block sidebar_content %}
     </table>
   </div>
 </div>
-{% endblock %} {% block scripts_content %}
+{% endblock %}
+{% block scripts_content %}
 <script>
-  const menus = [
+  // Pasar datos de menús a JavaScript
+  window.menusData = [
       {% for menu in menus %}
-          { id: "{{ menu.id }}", nombre: "{{ menu.nombre }}" },
+          { id: "{{ menu.id }}", nombre: "{{ menu.nombre }}" }{% if not forloop.last %},{% endif %}
       {% endfor %}
   ];
-
-  function fillOrderForm(id, cliente_id, estado, details) {
-      document.getElementById('order_id').value = id;
-      document.getElementById('order_cliente').value = cliente_id;
-      document.getElementById('order_estado').value = estado;
-      const platillosDiv = document.getElementById('order-platillos');
-      platillosDiv.innerHTML = '';
-
-      details.forEach(detail => {
-          const newPlatillo = document.createElement('div');
-          newPlatillo.className = 'order-platillo flex items-center space-x-2';
-          newPlatillo.innerHTML = `
-              <select name="menu" class="menu-select flex-1 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm">
-                  ${menus.map(menu => `<option value="${menu.id}" ${menu.id == detail.menu_id ? 'selected' : ''}>${menu.nombre}</option>`).join('')}
-              </select>
-              <input type="number" name="cantidad" min="1" value="${detail.cantidad}" class="menu-cantidad w-20 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm">
-              <button type="button" class="remove-platillo bg-destructive hover:bg-destructive/90 text-destructive-foreground w-8 h-8 rounded-lg transition-all duration-200 flex items-center justify-center">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-              </button>
-          `;
-          platillosDiv.appendChild(newPlatillo);
-      });
-  }
 </script>
 <script src="{% static 'js/orders.js' %}"></script>
 {% endblock %}
