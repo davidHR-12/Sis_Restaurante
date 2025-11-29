@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className =
-            "absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition";
+            "absolute right-3 top-1/2 -translate-y-1/2 text-muted-gray-100 hover:text-gray-100 transition";
 
         // SVGs
         btn.innerHTML = `

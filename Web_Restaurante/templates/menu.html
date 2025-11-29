@@ -28,7 +28,7 @@
                id="dish_name"
                class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
                placeholder="Nombre del platillo"
-               pattern="^[A-Za-z0-9\s\-&'#]+$"
+               pattern="^[A-Za-z0-9\s\-&'#áéíóúÁÉÍÓÚ]+$"               
                title="El nombre del platillo solo puede contener letras, números, espacios y - & ' #"
                required />
       </div>
@@ -55,13 +55,13 @@
         <button formaction="{% url 'menu_agregar' %}"
                 type="submit"
                 name="agregar"
-                class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Agregar
         </button>
         <button formaction="{% url 'menu_buscar' %}"
                 type="submit"
                 name="buscar"
-                class="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-1">
           <span>Buscar</span>
           <div class="group relative">
             <svg class="w-4 h-4 text-accent-foreground/70"
@@ -79,13 +79,13 @@
         <button formaction="{% url 'menu_actualizar' %}"
                 type="submit"
                 name="actualizar"
-                class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Actualizar
         </button>
         <button formaction="{% url 'menu_eliminar' %}"
                 type="submit"
                 name="eliminar"
-                class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Eliminar
         </button>
       </div>

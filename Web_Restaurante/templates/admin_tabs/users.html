@@ -1,6 +1,6 @@
 <!-- Botón para crear nuevo usuario -->
 <div class="mb-6 flex justify-between items-center">
-  <h2 class="text-xl font-bold text-foreground flex items-center">
+  <h2 class="text-xl font-bold text-gray-100 flex items-center">
     <svg class="w-6 h-6 text-primary mr-2"
          fill="none"
          stroke="currentColor"
@@ -11,7 +11,7 @@
     Gestión de Usuarios
   </h2>
   <button onclick="openCreateUserModal()"
-          class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2">
+          class="bg-primary hover:bg-primary/90 text-primary-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
     </svg>
@@ -24,12 +24,12 @@
     <table class="w-full">
       <thead class="bg-secondary">
         <tr>
-          <th class="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Usuario</th>
-          <th class="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Email</th>
-          <th class="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Permisos</th>
-          <th class="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Estado</th>
-          <th class="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Fecha de Registro</th>
-          <th class="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Acciones</th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-muted-gray-100">Usuario</th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-muted-gray-100">Email</th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-muted-gray-100">Permisos</th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-muted-gray-100">Estado</th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-muted-gray-100">Fecha de Registro</th>
+          <th class="px-6 py-4 text-left text-sm font-medium text-muted-gray-100">Acciones</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-border">
@@ -47,12 +47,12 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-foreground">{{ usuario.username }}</p>
+                  <p class="text-sm font-medium text-gray-100">{{ usuario.username }}</p>
                   {% if usuario.id == current_user.id %}<p class="text-xs text-accent">(Tú)</p>{% endif %}
                 </div>
               </div>
             </td>
-            <td class="px-6 py-4 text-sm text-muted-foreground">{{ usuario.email|default:"Sin email" }}</td>
+            <td class="px-6 py-4 text-sm text-muted-gray-100">{{ usuario.email|default:"Sin email" }}</td>
             <td class="px-6 py-4">
               <div class="flex flex-wrap gap-1">
                 {% if usuario.is_superuser %}
@@ -62,7 +62,7 @@
                   <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent">Staff</span>
                 {% endif %}
                 {% if not usuario.is_staff and not usuario.is_superuser %}
-                  <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-muted text-muted-foreground">
+                  <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-muted text-muted-gray-100">
                     Usuario Normal
                   </span>
                 {% endif %}
@@ -75,11 +75,11 @@
                 <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400">Inactivo</span>
               {% endif %}
             </td>
-            <td class="px-6 py-4 text-sm text-muted-foreground">{{ usuario.date_joined|date:"d/m/Y" }}</td>
+            <td class="px-6 py-4 text-sm text-muted-gray-100">{{ usuario.date_joined|date:"d/m/Y" }}</td>
             <td class="px-6 py-4">
               <div class="flex items-center space-x-2">
                 <button onclick='openEditUserModal({{ usuario.id }}, "{{ usuario.username }}", "{{ usuario.email }}", {{ usuario.is_staff|lower }}, {{ usuario.is_superuser|lower }}, {{ usuario.is_active|lower }})'
-                        class="bg-secondary hover:bg-secondary/80 text-secondary-foreground p-2 rounded-lg transition-all duration-200"
+                        class="bg-secondary hover:bg-secondary/80 text-secondary-gray-100 p-2 rounded-lg transition-all duration-200"
                         title="Editar">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
@@ -88,7 +88,7 @@
                 </button>
                 {% if usuario.id != current_user.id %}
                   <button onclick='openDeleteUserModal({{ usuario.id }}, "{{ usuario.username }}")'
-                          class="bg-destructive hover:bg-destructive/90 text-destructive-foreground p-2 rounded-lg transition-all duration-200"
+                          class="bg-destructive hover:bg-destructive/90 text-destructive-gray-100 p-2 rounded-lg transition-all duration-200"
                           title="Eliminar">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
@@ -101,7 +101,7 @@
           </tr>
         {% empty %}
           <tr>
-            <td colspan="6" class="px-6 py-8 text-center text-muted-foreground">No hay usuarios registrados</td>
+            <td colspan="6" class="px-6 py-8 text-center text-muted-gray-100">No hay usuarios registrados</td>
           </tr>
         {% endfor %}
       </tbody>
@@ -111,38 +111,38 @@
 <!-- Modal Crear Usuario -->
 <div id="createUserModal"
      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-card border border-border rounded-lg p-6 w-full max-w-md mx-4">
-    <h3 class="text-xl font-bold text-foreground mb-4">Crear Nuevo Usuario</h3>
+  <div class="bg-gray-800 border border-border rounded-lg p-6 w-full max-w-md mx-4">
+    <h3 class="text-xl font-bold text-gray-100 mb-4">Crear Nuevo Usuario</h3>
     <form method="post"
           action="{% url 'admin_create_user' %}"
           class="space-y-4">
       {% csrf_token %}
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">Nombre de Usuario *</label>
+        <label class="block text-sm font-medium text-gray-100 mb-2">Nombre de Usuario *</label>
         <input type="text"
                name="username"
                required
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">Email</label>
+        <label class="block text-sm font-medium text-gray-100 mb-2">Email</label>
         <input type="email"
                name="email"
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">Contraseña *</label>
+        <label class="block text-sm font-medium text-gray-100 mb-2">Contraseña *</label>
         <input type="password"
                name="password"
                required
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">Confirmar Contraseña *</label>
+        <label class="block text-sm font-medium text-gray-100 mb-2">Confirmar Contraseña *</label>
         <input type="password"
                name="password_confirm"
                required
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div class="space-y-2">
         <div class="flex items-center space-x-2">
@@ -150,7 +150,7 @@
                  name="is_staff"
                  id="create_is_staff"
                  class="w-4 h-4 text-primary bg-input border-border rounded focus:ring-2 focus:ring-primary">
-          <label for="create_is_staff" class="text-sm text-foreground cursor-pointer">Acceso al staff</label>
+          <label for="create_is_staff" class="text-sm text-gray-100 cursor-pointer">Acceso al staff</label>
         </div>
         <div class="flex items-center space-x-2">
           <input type="checkbox"
@@ -158,17 +158,17 @@
                  id="create_is_superuser"
                  class="w-4 h-4 text-primary bg-input border-border rounded focus:ring-2 focus:ring-primary">
           <label for="create_is_superuser"
-                 class="text-sm text-foreground cursor-pointer">Permisos de superusuario</label>
+                 class="text-sm text-gray-100 cursor-pointer">Permisos de superusuario</label>
         </div>
       </div>
       <div class="flex items-center justify-end space-x-3 pt-4">
         <button type="button"
                 onclick="closeCreateUserModal()"
-                class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-secondary hover:bg-secondary/80 text-secondary-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Cancelar
         </button>
         <button type="submit"
-                class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-primary hover:bg-primary/90 text-primary-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Crear Usuario
         </button>
       </div>
@@ -178,35 +178,35 @@
 <!-- Modal Editar Usuario -->
 <div id="editUserModal"
      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-card border border-border rounded-lg p-6 w-full max-w-md mx-4">
-    <h3 class="text-xl font-bold text-foreground mb-4">Editar Usuario</h3>
+  <div class="bg-gray-800 border border-border rounded-lg p-6 w-full max-w-md mx-4">
+    <h3 class="text-xl font-bold text-gray-100 mb-4">Editar Usuario</h3>
     <form method="post"
           action="{% url 'admin_update_user' %}"
           class="space-y-4">
       {% csrf_token %}
       <input type="hidden" name="user_id" id="edit_user_id">
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">Nombre de Usuario *</label>
+        <label class="block text-sm font-medium text-gray-100 mb-2">Nombre de Usuario *</label>
         <input type="text"
                name="username"
                id="edit_username"
                required
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">Email</label>
+        <label class="block text-sm font-medium text-gray-100 mb-2">Email</label>
         <input type="email"
                name="email"
                id="edit_email"
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div>
-        <label class="block text-sm font-medium text-foreground mb-2">
+        <label class="block text-sm font-medium text-gray-100 mb-2">
           Nueva Contraseña (dejar en blanco para no cambiar)
         </label>
         <input type="password"
                name="new_password"
-               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground">
+               class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100">
       </div>
       <div class="space-y-2">
         <div class="flex flex-col space-y-3">
@@ -215,25 +215,25 @@
                    name="is_superuser"
                    id="edit_is_superuser"
                    class="w-4 h-4 text-primary bg-input border-border rounded focus:ring-2 focus:ring-primary" />
-            <span class="text-sm text-foreground">Permisos de superusuario</span>
+            <span class="text-sm text-gray-100">Permisos de superusuario</span>
           </label>
           <label class="inline-flex items-center space-x-2 cursor-pointer">
             <input type="checkbox"
                    name="is_active"
                    id="edit_is_active"
                    class="w-4 h-4 text-primary bg-input border-border rounded focus:ring-2 focus:ring-primary" />
-            <span class="text-sm text-foreground">Usuario activo</span>
+            <span class="text-sm text-gray-100">Usuario activo</span>
           </label>
         </div>
       </div>
       <div class="flex items-center justify-end space-x-3 pt-4">
         <button type="button"
                 onclick="closeEditUserModal()"
-                class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-secondary hover:bg-secondary/80 text-secondary-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Cancelar
         </button>
         <button type="submit"
-                class="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-primary hover:bg-primary/90 text-primary-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Actualizar
         </button>
       </div>
@@ -243,10 +243,10 @@
 <!-- Modal Eliminar Usuario -->
 <div id="deleteUserModal"
      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-card border border-border rounded-lg p-6 w-full max-w-md mx-4">
-    <h3 class="text-xl font-bold text-foreground mb-4">Eliminar Usuario</h3>
-    <p class="text-muted-foreground mb-6">
-      ¿Estás seguro de que deseas eliminar al usuario <span id="delete_username" class="font-bold text-foreground"></span>? Esta acción no se puede deshacer.
+  <div class="bg-gray-800 border border-border rounded-lg p-6 w-full max-w-md mx-4">
+    <h3 class="text-xl font-bold text-gray-100 mb-4">Eliminar Usuario</h3>
+    <p class="text-muted-gray-100 mb-6">
+      ¿Estás seguro de que deseas eliminar al usuario <span id="delete_username" class="font-bold text-gray-100"></span>? Esta acción no se puede deshacer.
     </p>
     <form method="post" action="{% url 'admin_delete_user' %}">
       {% csrf_token %}
@@ -254,11 +254,11 @@
       <div class="flex items-center justify-end space-x-3">
         <button type="button"
                 onclick="closeDeleteUserModal()"
-                class="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-secondary hover:bg-secondary/80 text-secondary-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Cancelar
         </button>
         <button type="submit"
-                class="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                class="bg-destructive hover:bg-destructive/90 text-destructive-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200">
           Eliminar
         </button>
       </div>

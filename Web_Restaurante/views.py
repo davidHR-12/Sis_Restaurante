@@ -49,7 +49,21 @@ def login_view(request):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request):
-    return render(request, 'home.html')
+    # Últimos pedidos (últimos 5)
+    ultimos_pedidos = Order.objects.select_related(
+        'cliente').order_by('-fecha_registro')[:3]
+
+    # Calcular total de cada pedido
+    for pedido in ultimos_pedidos:
+        pedido.total_precio = sum(
+            float(detail.menu.precio) * detail.cantidad
+            for detail in pedido.orderdetail_set.all()
+        )
+
+    context = {
+        'ultimos_pedidos': ultimos_pedidos,
+    }
+    return render(request, 'home.html', context)
 
 # ---------------------------------------------------------------------
 # LISTAR CLIENTES
@@ -128,7 +142,7 @@ def admin_panel(request):
     ).order_by('estado')
 
     # Calcular ingresos totales
-    orders_con_detalles = Order.objects.prefetch_related(
+    orders_con_detalles = Order.objects.filter(estado='Entregado').prefetch_related(
         'orderdetail_set__menu').all()
     ingresos_totales = Decimal('0.00')
     ingresos_hoy = Decimal('0.00')
@@ -147,7 +161,9 @@ def admin_panel(request):
             ingresos_hoy += total_con_itbis
 
     # Platillos más vendidos (top 5)
-    platillos_vendidos = OrderDetail.objects.values(
+    platillos_vendidos = OrderDetail.objects.filter(
+        order__estado='Entregado'  # o el estado que consideres
+    ).values(
         'menu__nombre'
     ).annotate(
         total_cantidad=Sum('cantidad')
@@ -691,10 +707,12 @@ def create_invoice(request, order_id):
             textColor=colors.HexColor('#7f8c8d'),
             alignment=TA_CENTER
         )
-        elements.append(Paragraph(config.restaurant_name, restaurant_info_style))
+        elements.append(
+            Paragraph(config.restaurant_name, restaurant_info_style))
 
         if config.restaurant_address:
-            elements.append(Paragraph(config.restaurant_address, restaurant_info_style))
+            elements.append(
+                Paragraph(config.restaurant_address, restaurant_info_style))
 
         if config.restaurant_phone or config.restaurant_email:
             contact_info = []
@@ -703,7 +721,8 @@ def create_invoice(request, order_id):
             if config.restaurant_email:
                 contact_info.append(f'Email: {config.restaurant_email}')
 
-            elements.append(Paragraph(' | '.join(contact_info), restaurant_info_style))
+            elements.append(Paragraph(' | '.join(
+                contact_info), restaurant_info_style))
 
     elements.append(Spacer(1, 8))
 
@@ -726,7 +745,8 @@ def create_invoice(request, order_id):
         ]
     ]
 
-    client_table = Table(client_data, colWidths=[0.9 * inch, 2.2 * inch, 0.9 * inch, 2.0 * inch])
+    client_table = Table(client_data, colWidths=[
+                         0.9 * inch, 2.2 * inch, 0.9 * inch, 2.0 * inch])
     client_table.setStyle(TableStyle([
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -799,13 +819,16 @@ def create_invoice(request, order_id):
     total_final = total_con_itbis + propina
 
     summary_data = [
-        [Paragraph('Subtotal:', info_label_style), Paragraph(f'RD$ {subtotal:.2f}', info_value_style)],
-        [Paragraph(f'ITBIS ({config.itbis_rate}%):', info_label_style), Paragraph(f'RD$ {itbis:.2f}', info_value_style)]
+        [Paragraph('Subtotal:', info_label_style), Paragraph(
+            f'RD$ {subtotal:.2f}', info_value_style)],
+        [Paragraph(f'ITBIS ({config.itbis_rate}%):', info_label_style), Paragraph(
+            f'RD$ {itbis:.2f}', info_value_style)]
     ]
 
     if config.show_tip_in_invoice:
         summary_data.append([
-            Paragraph(f'Propina sugerida ({config.suggested_tip_rate}%):', info_label_style),
+            Paragraph(
+                f'Propina sugerida ({config.suggested_tip_rate}%):', info_label_style),
             Paragraph(f'RD$ {propina:.2f}', info_value_style)
         ])
 
@@ -829,7 +852,8 @@ def create_invoice(request, order_id):
     ))
 
     total_table = Table(
-        [[Paragraph('TOTAL A PAGAR:', total_style), Paragraph(f'RD$ {total_final:.2f}', total_style)]],
+        [[Paragraph('TOTAL A PAGAR:', total_style), Paragraph(
+            f'RD$ {total_final:.2f}', total_style)]],
         colWidths=[3.3 * inch, 2.5 * inch]
     )
 

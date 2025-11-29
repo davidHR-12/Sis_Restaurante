@@ -1,6 +1,6 @@
 // Función para validar el nombre del platillo (solo letras, números y espacios)
 function validateDishName(name) {
-  const regex = /^[A-Za-z0-9\s\-&'#]+$/;
+  const regex = /^[A-Za-z0-9\s\-&'#áéíóúÁÉÍÓÚ]+$/;
   return regex.test(name);
 }
 

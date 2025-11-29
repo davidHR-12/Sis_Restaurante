@@ -57,35 +57,35 @@ class SystemConfigForm(forms.ModelForm):
         ]
         widgets = {
             'restaurant_name': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': 'Nombre del restaurante'
             }),
             'restaurant_address': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': 'Dirección completa'
             }),
             'restaurant_phone': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': '(809) 555-5555'
             }),
             'restaurant_email': forms.EmailInput(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': 'correo@restaurante.com'
             }),
             'itbis_rate': forms.NumberInput(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': '18.00',
                 'step': '0.01',
                 'min': '0',
                 'max': '100'
             }),
             'invoice_footer_message': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': 'Mensaje de agradecimiento',
                 'rows': 3
             }),
             'suggested_tip_rate': forms.NumberInput(attrs={
-                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100',
                 'placeholder': '10.00',
                 'step': '0.01',
                 'min': '0',

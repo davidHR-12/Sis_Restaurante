@@ -17,7 +17,7 @@ window.fillOrderForm = function (id, cliente_id, estado, details) {
     const newPlatillo = document.createElement("div");
     newPlatillo.className = "order-platillo flex items-center space-x-2";
     newPlatillo.innerHTML = `
-            <select name="menu" class="menu-select flex-1 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm">
+            <select name="menu" class="menu-select flex-1 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100 text-sm">
                 ${menus
                   .map(
                     (menu) =>
@@ -29,8 +29,8 @@ window.fillOrderForm = function (id, cliente_id, estado, details) {
             </select>
             <input type="number" name="cantidad" min="1" value="${
               detail.cantidad
-            }" class="menu-cantidad w-20 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground text-sm">
-            <button type="button" class="remove-platillo bg-destructive hover:bg-destructive/90 text-destructive-foreground w-8 h-8 rounded-lg transition-all duration-200 flex items-center justify-center">
+            }" class="menu-cantidad w-20 px-3 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-gray-100 text-sm">
+            <button type="button" class="remove-platillo bg-destructive hover:bg-destructive/90 text-destructive-gray-100 w-8 h-8 rounded-lg transition-all duration-200 flex items-center justify-center">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
