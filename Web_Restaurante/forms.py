@@ -1,8 +1,5 @@
 from django import forms
-from .models import Cliente, Menu, Order, OrderDetail
-
-from django import forms
-from .models import Cliente, Menu, Order, OrderDetail
+from .models import Cliente, Menu, Order, OrderDetail, SystemConfig
 import re
 
 
@@ -13,7 +10,8 @@ class ClienteForm(forms.ModelForm):
         nombre = self.cleaned_data.get('nombre', '').strip()
 
         if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$', nombre):
-            raise forms.ValidationError("El nombre solo puede contener letras y espacios.")
+            raise forms.ValidationError(
+                "El nombre solo puede contener letras y espacios.")
 
         return nombre
 
@@ -39,14 +37,71 @@ class ClienteForm(forms.ModelForm):
         model = Cliente
         fields = ['nombre', 'telefono', 'correo']
 
+
 class BuscarClienteForm(forms.Form):
     nombre = forms.CharField(max_length=100, required=False)
-    
+
+
+class SystemConfigForm(forms.ModelForm):
+    class Meta:
+        model = SystemConfig
+        fields = [
+            'restaurant_name',
+            'restaurant_address',
+            'restaurant_phone',
+            'restaurant_email',
+            'itbis_rate',
+            'invoice_footer_message',
+            'suggested_tip_rate',
+            'show_tip_in_invoice'
+        ]
+        widgets = {
+            'restaurant_name': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': 'Nombre del restaurante'
+            }),
+            'restaurant_address': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': 'Dirección completa'
+            }),
+            'restaurant_phone': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': '(809) 555-5555'
+            }),
+            'restaurant_email': forms.EmailInput(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': 'correo@restaurante.com'
+            }),
+            'itbis_rate': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': '18.00',
+                'step': '0.01',
+                'min': '0',
+                'max': '100'
+            }),
+            'invoice_footer_message': forms.Textarea(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': 'Mensaje de agradecimiento',
+                'rows': 3
+            }),
+            'suggested_tip_rate': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground',
+                'placeholder': '10.00',
+                'step': '0.01',
+                'min': '0',
+                'max': '100'
+            }),
+            'show_tip_in_invoice': forms.CheckboxInput(attrs={
+                'class': 'w-4 h-4 text-primary bg-input border-border rounded focus:ring-2 focus:ring-primary'
+            })
+        }
+
 
 class MenuForm(forms.ModelForm):
     class Meta:
         model = Menu
         fields = ['nombre', 'descripcion', 'precio']
+
 
 class BuscarMenuForm(forms.Form):
     nombre = forms.CharField(max_length=100, required=False)
@@ -57,11 +112,12 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ['cliente', 'estado']
 
+
 class OrderDetailForm(forms.ModelForm):
     class Meta:
         model = OrderDetail
         fields = ['menu', 'cantidad']
 
+
 class BuscarOrderForm(forms.Form):
     cliente = forms.CharField(max_length=100, required=False)
- 

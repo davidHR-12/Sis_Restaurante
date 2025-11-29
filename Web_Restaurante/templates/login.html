@@ -34,108 +34,66 @@
         },
       };
     </script>
-    <link
-      rel="preload"
-      as="image"
-      href="{% static 'images/background.webp' %}"
-    />
+    <link rel="preload" as="image" href="{% static 'images/background.webp' %}" />
     <link rel="stylesheet" href="{% static 'css/login_style.css' %}?v=1.0" />
   </head>
-  <body
-    class="min-h-screen bg-background text-foreground flex items-center justify-center p-4"
-  >
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"
-    ></div>
-
+  <body class="min-h-screen bg-background text-foreground flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
     <div class="relative w-full max-w-md">
       <div class="bg-card border border-border rounded-lg shadow-2xl p-8">
         <div class="text-center mb-8">
-          <div
-            class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
-          >
-            <svg
-              class="w-8 h-8 text-primary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              ></path>
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary"
+                 fill="none"
+                 stroke="currentColor"
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+              </path>
             </svg>
           </div>
           <h1 class="text-2xl font-bold text-foreground">Iniciar Sesión</h1>
-          <p class="text-muted-foreground mt-2">
-            Accede a tu sistema de restaurante
-          </p>
+          <p class="text-muted-foreground mt-2">Accede a tu sistema de restaurante</p>
         </div>
-
         <form method="post" class="space-y-6">
           {% csrf_token %}
           <div class="space-y-4">
             <div>
-              <label
-                for="username"
-                class="block text-sm font-medium text-foreground mb-2"
-                >Usuario</label
-              >
-              <input
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Ingresa tu usuario"
-                required
-                class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
-              />
+              <label for="username" class="block text-sm font-medium text-foreground mb-2">Usuario</label>
+              <input type="text"
+                     name="username"
+                     id="username"
+                     placeholder="Ingresa tu usuario"
+                     required
+                     class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground" />
             </div>
             <div>
-              <label
-                for="password"
-                class="block text-sm font-medium text-foreground mb-2"
-                >Contraseña</label
-              >
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Ingresa tu contraseña"
-                required
-                class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground"
-              />
+              <label for="password" class="block text-sm font-medium text-foreground mb-2">Contraseña</label>
+              <div class="relative">
+                <input type="password"
+                       name="password"
+                       id="password"
+                       placeholder="Ingresa tu contraseña"
+                       required
+                       class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-foreground placeholder-muted-foreground" />
+              </div>
             </div>
+            <button type="submit"
+                    class="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+              Acceder
+            </button>
           </div>
-
-          <button
-            type="submit"
-            class="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-          >
-            Acceder
-          </button>
         </form>
-
         {% if messages %}
-        <div class="mt-6 space-y-2">
-          {% for message in messages %}
-          <div
-            class="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg text-sm"
-          >
-            {{ message }}
+          <div class="mt-6 space-y-2">
+            {% for message in messages %}
+              <div class="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg text-sm">
+                {{ message }}
+              </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
         {% endif %}
       </div>
-
-      <button
-        onclick="location.href='/admin/'"
-        class="absolute top-4 right-4 bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium"
-      >
-        Admin
-      </button>
     </div>
+    <script src="{% static 'js/password_toggle.js' %}"></script>
   </body>
 </html>
