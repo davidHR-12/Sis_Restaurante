@@ -14,7 +14,7 @@
       </div>
     </div>
     <h3 class="text-2xl font-bold text-foreground">{{ total_clientes }}</h3>
-    <p class="text-sm text-muted-foreground">Total de Clientes</p>
+    <p class="text-sm text-muted-foreground">Clientes Hoy</p>
   </div>
   <!-- Total Pedidos -->
   <div class="bg-accent/5 border border-accent/20 rounded-lg p-6">
@@ -87,7 +87,7 @@
             <span class="text-sm text-muted-foreground">{{ estado.total }} pedidos</span>
           </div>
           <div class="w-full bg-secondary rounded-full h-2">
-            <div class="{% if estado.estado == 'Pendiente' %}bg-yellow-400{% elif estado.estado == 'En proceso' %}bg-blue-400{% elif estado.estado == 'Listo' %}bg-green-400{% else %}bg-red-400{% endif %} h-2 rounded-full"
+            <div class="{% if estado.estado == 'Pendiente' %}bg-yellow-400{% elif estado.estado == 'En proceso' %}bg-blue-400{% elif estado.estado == 'Listo' %}bg-green-400{% elif estado.estado == 'Cancelado' %}bg-red-400{% else %}bg-gray-400{% endif %} h-2 rounded-full"
                  style="width: {{ estado.total|floatformat:0 }}%"></div>
           </div>
         </div>
@@ -158,7 +158,7 @@
               </span>
             </td>
             <td class="px-4 py-3 text-sm text-accent font-semibold">RD$ {{ pedido.total_precio|floatformat:2 }}</td>
-            <td class="px-4 py-3 text-sm text-muted-foreground">{{ pedido.fecha_registro|date:"d/m/Y H:i" }}</td>
+            <td class="px-4 py-3 text-sm text-muted-foreground">{{ pedido.fecha_actualizacion|date:"d/m/Y H:i" }}</td>
           </tr>
         {% empty %}
           <tr>

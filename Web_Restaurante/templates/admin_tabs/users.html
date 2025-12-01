@@ -58,10 +58,7 @@
                 {% if usuario.is_superuser %}
                   <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">Superusuario</span>
                 {% endif %}
-                {% if usuario.is_staff %}
-                  <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent">Staff</span>
-                {% endif %}
-                {% if not usuario.is_staff and not usuario.is_superuser %}
+                {% if not usuario.is_superuser %}
                   <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold bg-muted text-muted-gray-100">
                     Usuario Normal
                   </span>
@@ -78,14 +75,16 @@
             <td class="px-6 py-4 text-sm text-muted-gray-100">{{ usuario.date_joined|date:"d/m/Y" }}</td>
             <td class="px-6 py-4">
               <div class="flex items-center space-x-2">
-                <button onclick='openEditUserModal({{ usuario.id }}, "{{ usuario.username }}", "{{ usuario.email }}", {{ usuario.is_staff|lower }}, {{ usuario.is_superuser|lower }}, {{ usuario.is_active|lower }})'
-                        class="bg-secondary hover:bg-secondary/80 text-secondary-gray-100 p-2 rounded-lg transition-all duration-200"
-                        title="Editar">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                    </path>
-                  </svg>
-                </button>
+                {% if not usuario.is_staff and not usuario.is_superuser %}
+                  <button onclick='openEditUserModal({{ usuario.id }}, "{{ usuario.username }}", "{{ usuario.email }}", {{ usuario.is_superuser|lower }}, {{ usuario.is_active|lower }})'
+                          class="bg-secondary hover:bg-secondary/80 text-secondary-gray-100 p-2 rounded-lg transition-all duration-200"
+                          title="Editar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                      </path>
+                    </svg>
+                  </button>
+                {% endif %}
                 {% if usuario.id != current_user.id %}
                   <button onclick='openDeleteUserModal({{ usuario.id }}, "{{ usuario.username }}")'
                           class="bg-destructive hover:bg-destructive/90 text-destructive-gray-100 p-2 rounded-lg transition-all duration-200"
@@ -111,7 +110,7 @@
 <!-- Modal Crear Usuario -->
 <div id="createUserModal"
      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-gray-800 border border-border rounded-lg p-6 w-full max-w-md mx-4">
+  <div class="bg-card border border-border rounded-lg p-6 w-full max-w-md mx-4">
     <h3 class="text-xl font-bold text-gray-100 mb-4">Crear Nuevo Usuario</h3>
     <form method="post"
           action="{% url 'admin_create_user' %}"
@@ -178,7 +177,7 @@
 <!-- Modal Editar Usuario -->
 <div id="editUserModal"
      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-gray-800 border border-border rounded-lg p-6 w-full max-w-md mx-4">
+  <div class="bg-card border border-border rounded-lg p-6 w-full max-w-md mx-4">
     <h3 class="text-xl font-bold text-gray-100 mb-4">Editar Usuario</h3>
     <form method="post"
           action="{% url 'admin_update_user' %}"
@@ -241,7 +240,7 @@
 <!-- Modal Eliminar Usuario -->
 <div id="deleteUserModal"
      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-  <div class="bg-gray-800 border border-border rounded-lg p-6 w-full max-w-md mx-4">
+  <div class="bg-card border border-border rounded-lg p-6 w-full max-w-md mx-4">
     <h3 class="text-xl font-bold text-gray-100 mb-4">Eliminar Usuario</h3>
     <p class="text-muted-gray-100 mb-6">
       ¿Estás seguro de que deseas eliminar al usuario

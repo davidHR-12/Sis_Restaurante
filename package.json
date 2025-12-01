@@ -1,0 +1,26 @@
+{
+  "name": "sis_restaurante",
+  "version": "1.0.0",
+  "description": "Sistema de restaurante para practica de Sof-111 y Sof-112",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidHR-12/Sis_Restaurante.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/davidHR-12/Sis_Restaurante/issues"
+  },
+  "homepage": "https://github.com/davidHR-12/Sis_Restaurante#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.1"
+  }
+}

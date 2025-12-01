@@ -124,16 +124,17 @@ def admin_panel(request):
     Panel principal de administración con dashboard y pestañas
     """
     config = SystemConfig.get_config()
-
+    hoy = datetime.now().date()
     # ========== ESTADÍSTICAS PARA DASHBOARD ==========
-    # Total de clientes
-    total_clientes = Cliente.objects.count()
+    # Total de clientes Hoy
+    total_clientes = Order.objects.filter(
+        fecha_actualizacion__date=hoy).count()
 
     # Total de pedidos
     total_pedidos = Order.objects.count()
 
     # Pedidos de hoy
-    hoy = datetime.now().date()
+
     pedidos_hoy = Order.objects.filter(fecha_registro__date=hoy).count()
 
     # Pedidos por estado
@@ -225,7 +226,7 @@ def admin_update_config(request):
         else:
             messages.error(request, 'Error al actualizar la configuración')
 
-    return redirect('admin_panel')
+    return redirect('/admin-panel/?tab=config')
 
 
 # ---------------------------------------------------------------------
@@ -275,7 +276,7 @@ def admin_create_user(request):
         except Exception as e:
             messages.error(request, f'Error al crear usuario: {str(e)}')
 
-    return redirect('admin_panel')
+    return redirect('/admin-panel/?tab=users')
 
 
 # ---------------------------------------------------------------------
@@ -315,7 +316,7 @@ def admin_update_user(request):
         except Exception as e:
             messages.error(request, f'Error al actualizar usuario: {str(e)}')
 
-    return redirect('admin_panel')
+    return redirect('/admin-panel/?tab=users')
 
 
 # ---------------------------------------------------------------------
@@ -341,7 +342,7 @@ def admin_delete_user(request):
         messages.success(
             request, f'Usuario {username} eliminado correctamente')
 
-    return redirect('admin_panel')
+    return redirect('/admin-panel/?tab=users')
 
 
 # ---------------------------------------------------------------------
@@ -367,7 +368,7 @@ def admin_update_profile(request):
         except Exception as e:
             messages.error(request, f'Error al actualizar perfil: {str(e)}')
 
-    return redirect('admin_panel')
+    return redirect('/admin-panel/?tab=account')
 
 
 # ---------------------------------------------------------------------
@@ -409,7 +410,7 @@ def admin_change_password(request):
 
         messages.success(request, 'Contraseña actualizada correctamente')
 
-    return redirect('admin_panel')
+    return redirect('/admin-panel/?tab=account')
 
 
 # ---------------------------------------------------------------------

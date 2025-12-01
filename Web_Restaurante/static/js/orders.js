@@ -56,31 +56,53 @@ window.fillOrderForm = function (id, cliente_id, estado, details) {
   const clienteSelect = document.getElementById("order_cliente");
   const estadoSelect = document.getElementById("order_estado");
   
-  // Función centralizada para aplicar/remover estilos y estado
-  const toggleControls = (disabled) => {
-    // 1. Controles principales y botones de acción/agregar
-    [clienteSelect, estadoSelect, addPlatilloBtn, ...actionButtons].forEach(el => {
-      if (el) { // Verificar si el elemento existe
-        el.disabled = disabled;
-        if (disabled) {
-          el.classList.add(...classNames);
-        } else {
-          el.classList.remove(...classNames);
+// Función centralizada para aplicar/remover estilos y estado
+const toggleControls = (disabled) => {
+  const disabledClasses = ["bg-gray-400", "text-gray-700", "cursor-not-allowed"];
+
+  // Elementos a manipular
+  const elements = [
+    clienteSelect,
+    estadoSelect,
+    addPlatilloBtn,
+    ...actionButtons,
+    ...formControls,
+    ...removeButtons
+  ].filter(Boolean);
+
+  elements.forEach(el => {
+
+    // Guardar clases originales una sola vez
+    if (!el.dataset.originalClass) {
+      el.dataset.originalClass = el.className;
+    }
+
+    if (disabled) {
+      el.disabled = true;
+
+      // 1. Quitar TODAS las clases de color dinámicas
+      el.classList.forEach(cls => {
+        if (cls.startsWith("bg-") || cls.startsWith("hover:bg-")) {
+          el.classList.remove(cls);
         }
-      }
-    });
-    
-    // 2. Platillos (dinámicos)
-    [...formControls, ...removeButtons].forEach(el => {
-      el.disabled = disabled;
-      if (disabled) {
-        el.classList.add(...classNames);
-      } else {
-        // MUY IMPORTANTE: Eliminar las clases de gris y de deshabilitación.
-        el.classList.remove(...classNames);
-      }
-    });
-  };
+      });
+
+      // 2. Agregar estilo de deshabilitado
+      el.classList.add(...disabledClasses);
+
+    } else {
+
+      el.disabled = false;
+
+      // Restaurar clases originales exactas
+      el.className = el.dataset.originalClass;
+
+    }
+  });
+};
+
+
+
 
   // Aplicar los cambios basándose en el estado del pedido
   toggleControls(isEntregado);
