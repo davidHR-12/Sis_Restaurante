@@ -1,6 +1,31 @@
 // clientes.js
 
+// Función para validar el nombre del cliente (solo letras y espacios)
+function validateClientName(name) {
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(name);
+}
+
+// Función para manejar la entrada en tiempo real
+function handleNameInput(event) {
+    const input = event.target;
+    const name = input.value;
+
+    if (name && !validateClientName(name)) {
+        input.setCustomValidity("El nombre solo puede contener letras y espacios");
+        input.reportValidity();
+    } else {
+        input.setCustomValidity(""); // Limpiar mensaje de error si es válido
+    }
+}
+
 function fillForm(id, nombre, telefono, correo) {
+    // Validar el nombre del cliente antes de asignarlo
+    if (!validateClientName(nombre)) {
+        alert("El nombre solo puede contener letras y espacios");
+        return; // Salir de la función si el nombre no es válido
+    }
+
     document.getElementById("cliente_id").value = id;
     document.getElementById("name_client").value = nombre;
     document.getElementById("tel_client").value = telefono;
@@ -8,9 +33,10 @@ function fillForm(id, nombre, telefono, correo) {
 }
 
 document.getElementById("show-all-clients").onclick = () => {
-    window.location.href = "/home/client/"; // o la URL de tu vista 'clientes'
+    window.location.href = "/home/client/";
 };
 
+// Formateo automático del teléfono
 document.getElementById("tel_client").addEventListener("input", function(e) {
     let valor = e.target.value.replace(/\D/g, "");
     if (valor.length <= 3) {
@@ -24,10 +50,5 @@ document.getElementById("tel_client").addEventListener("input", function(e) {
     }
 });
 
-document.getElementById("name_client").addEventListener("input", function(e) {
-    let valor = e.target.value;
-    let limpio = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
-    if (valor !== limpio) {
-        e.target.value = limpio;
-    }
-});
+// Agregar listener para el campo de nombre del cliente en tiempo real
+document.getElementById("name_client").addEventListener("input", handleNameInput);
